@@ -1,0 +1,18 @@
+volumes:
+  data:
+
+services:
+  postgres:
+    build:
+      context: ./
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    environment:
+      - POSTGRES_PASSWORD=postgrespw
+    ports:
+      - "5432:5432"
+    volumes:
+      - data:/var/lib/postgresql
