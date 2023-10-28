@@ -1,3 +1,6 @@
+-- Create the keycloak database
+CREATE DATABASE keycloak;
+
 -- Create the "products" database
 CREATE DATABASE products;
 

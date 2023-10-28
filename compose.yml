@@ -10,9 +10,19 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-    environment:
-      - POSTGRES_PASSWORD=postgrespw
+    env_file:
+      - env/.env_postgres
     ports:
       - "5432:5432"
     volumes:
       - data:/var/lib/postgresql
+
+  keycloak:
+    image: bitnami/keycloak:latest
+    env_file:
+      - env/.env_keycloak
+    ports:
+      - "8082:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
