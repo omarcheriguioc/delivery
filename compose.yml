@@ -3,6 +3,7 @@ volumes:
 
 services:
   postgres:
+    container_name: postgres
     build:
       context: ./
     healthcheck:
@@ -18,6 +19,7 @@ services:
       - data:/var/lib/postgresql
 
   keycloak:
+    container_name: keycloak
     image: bitnami/keycloak:latest
     env_file:
       - env/.env_keycloak
@@ -26,3 +28,21 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+
+  ms-crud-products:
+    container_name: ms-crud-products
+    build: ../ms-crud-products/.
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "9091:9091"
+
+  ms-gatway:
+    container_name: ms-gatway
+    build: ../ms-gatway/.
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"

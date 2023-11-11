@@ -1,6 +1,14 @@
 -- Create the keycloak database
 CREATE DATABASE keycloak;
 
+-- Connect to the "keycloak" database
+\c keycloak;
+
+-- Create the "public" schema
+CREATE SCHEMA IF NOT EXISTS public;
+
+
+
 -- Create the "products" database
 CREATE DATABASE products;
 
